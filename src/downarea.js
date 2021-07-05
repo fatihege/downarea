@@ -10,39 +10,39 @@ var repeat = function (string, count) {
     }
     return result;
 };
-var DownArea = /** @class */ (function () {
+var DownArea = (function () {
     function DownArea(args) {
         var _a;
-        var _b, _c;
+        var _b, _c, _d;
         this.minWidth = 464;
         this.minHeight = 120;
         this.tools = [];
         this.actions = (_a = {},
-            _a['heading-1'] = {fn: this.addHeading},
-            _a['heading-2'] = {fn: this.addHeading, args: [2]},
-            _a['heading-3'] = {fn: this.addHeading, args: [3]},
-            _a['heading-4'] = {fn: this.addHeading, args: [4]},
-            _a['heading-5'] = {fn: this.addHeading, args: [5]},
-            _a['heading-6'] = {fn: this.addHeading, args: [6]},
-            _a['bold'] = {fn: this.addBold},
-            _a['italic'] = {fn: this.addItalic},
-            _a['bold-italic'] = {fn: this.addBoldItalic},
-            _a['normal-link'] = {fn: this.addLink},
-            _a['quick-link'] = {fn: this.addLink, args: [1]},
-            _a['email'] = {fn: this.addEmail},
-            _a['image'] = {fn: this.addImage},
-            _a['blockquote'] = {fn: this.addBlockquote},
-            _a['u-list'] = {fn: this.addUnorderedList},
-            _a['o-list'] = {fn: this.addOrderedList},
-            _a['sl-code'] = {fn: this.addSingleLineCode},
-            _a['code-block'] = {fn: this.addCodeBlock},
+            _a['heading-1'] = { fn: this.addHeading },
+            _a['heading-2'] = { fn: this.addHeading, args: [2] },
+            _a['heading-3'] = { fn: this.addHeading, args: [3] },
+            _a['heading-4'] = { fn: this.addHeading, args: [4] },
+            _a['heading-5'] = { fn: this.addHeading, args: [5] },
+            _a['heading-6'] = { fn: this.addHeading, args: [6] },
+            _a['bold'] = { fn: this.addBold },
+            _a['italic'] = { fn: this.addItalic },
+            _a['bold-italic'] = { fn: this.addBoldItalic },
+            _a['normal-link'] = { fn: this.addLink },
+            _a['quick-link'] = { fn: this.addLink, args: [1] },
+            _a['email'] = { fn: this.addEmail },
+            _a['image'] = { fn: this.addImage },
+            _a['blockquote'] = { fn: this.addBlockquote },
+            _a['u-list'] = { fn: this.addUnorderedList },
+            _a['o-list'] = { fn: this.addOrderedList },
+            _a['sl-code'] = { fn: this.addSingleLineCode },
+            _a['code-block'] = { fn: this.addCodeBlock },
             _a);
         this.element = args.elem;
-        this.resize = (_b = args.resize) !== null && _b !== void 0 ? _b : DownArea.RESIZE_VERTICAL;
-        this.hiddenTools = (_c = args.hide) !== null && _c !== void 0 ? _c : [];
+        this.textareaName = (_b = args.name) !== null && _b !== void 0 ? _b : null;
+        this.resize = (_c = args.resize) !== null && _c !== void 0 ? _c : DownArea.RESIZE_VERTICAL;
+        this.hiddenTools = (_d = args.hide) !== null && _d !== void 0 ? _d : [];
         this.init();
     }
-
     DownArea.prototype.init = function () {
         this.element.innerHTML = '';
         this.createElements();
@@ -54,31 +54,25 @@ var DownArea = /** @class */ (function () {
         this.setTextareaSize();
     };
     DownArea.prototype.createElements = function () {
-        // DownArea
         var downareaElement = document.createElement('div');
         downareaElement.classList.add('downarea');
         this.element.appendChild(downareaElement);
-        // Resizer
         var resizer = document.createElement('div');
         resizer.classList.add('resizer');
         downareaElement.appendChild(resizer);
-        // Wrapper
         var wrapper = document.createElement('div');
         wrapper.classList.add('downarea-wrapper');
         downareaElement.appendChild(wrapper);
-        // Toolbar
         var toolbar = document.createElement('div');
         toolbar.classList.add('downarea-toolbar');
         wrapper.appendChild(toolbar);
         if (this.hiddenTools.indexOf('heading') < 0) {
-            // Heading
             var headingTool = document.createElement('div');
             headingTool.classList.add('downarea-toolbar-tool');
             headingTool.dataset.dropdown = 'heading-dropdown';
             headingTool.title = 'Heading';
             headingTool.innerText = 'Heading';
             toolbar.appendChild(headingTool);
-            // Heading Dropdown
             var headingDropdown = document.createElement('div');
             headingDropdown.classList.add('downarea-tool-dropdown');
             headingDropdown.id = 'heading-dropdown';
@@ -86,7 +80,6 @@ var DownArea = /** @class */ (function () {
             headingTool.appendChild(headingDropdown);
         }
         if (this.hiddenTools.indexOf('bold') < 0) {
-            // Bold
             var boldTool = document.createElement('div');
             boldTool.classList.add('downarea-toolbar-tool');
             boldTool.dataset.action = 'bold';
@@ -95,7 +88,6 @@ var DownArea = /** @class */ (function () {
             toolbar.appendChild(boldTool);
         }
         if (this.hiddenTools.indexOf('italic') < 0) {
-            // Italic
             var italicTool = document.createElement('div');
             italicTool.classList.add('downarea-toolbar-tool');
             italicTool.dataset.action = 'italic';
@@ -104,7 +96,6 @@ var DownArea = /** @class */ (function () {
             toolbar.appendChild(italicTool);
         }
         if (this.hiddenTools.indexOf('bold-italic') < 0) {
-            // Bold Italic
             var boldItalicTool = document.createElement('div');
             boldItalicTool.classList.add('downarea-toolbar-tool');
             boldItalicTool.dataset.action = 'bold-italic';
@@ -113,14 +104,12 @@ var DownArea = /** @class */ (function () {
             toolbar.appendChild(boldItalicTool);
         }
         if (this.hiddenTools.indexOf('link') < 0) {
-            // Link
             var linkTool = document.createElement('div');
             linkTool.classList.add('downarea-toolbar-tool');
             linkTool.dataset.dropdown = 'link-dropdown';
             linkTool.title = 'Link';
             linkTool.innerHTML = "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\" version=\"1.1\"\n                         style=\"fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;\">\n                        <g transform=\"matrix(1.47599,0,0,1.47599,-23.9251,-18.9625)\">\n                            <path d=\"M52.418,62.171L40.033,74.556C35.126,79.463 27.159,79.463 22.252,74.556C17.345,69.649 17.345,61.681 22.252,56.775C22.252,56.775 40.637,38.39 40.637,38.39C45.544,33.483 53.511,33.483 58.418,38.39C59.49,39.461 60.327,40.679 60.931,41.979L57.342,45.568C57.027,44.122 56.308,42.747 55.184,41.624C52.062,38.501 46.993,38.501 43.871,41.624L25.486,60.008C22.364,63.13 22.364,68.2 25.486,71.322C28.608,74.444 33.677,74.444 36.8,71.322L46.395,61.727C48.361,62.251 50.406,62.399 52.418,62.171ZM47.827,31.199L60.137,18.89C65.044,13.983 73.011,13.983 77.918,18.89C82.825,23.797 82.825,31.764 77.918,36.671C77.918,36.671 59.533,55.056 59.533,55.056C54.626,59.963 46.659,59.963 41.752,55.056C40.658,53.962 39.808,52.715 39.201,51.384L42.807,47.778C43.111,49.26 43.837,50.673 44.986,51.822C48.108,54.944 53.177,54.944 56.3,51.822L74.684,33.437C77.806,30.315 77.806,25.246 74.684,22.124C71.562,19.001 66.493,19.001 63.371,22.124L53.81,31.684C51.859,31.151 49.827,30.989 47.827,31.199Z\"/>\n                        </g>\n                    </svg>";
             toolbar.appendChild(linkTool);
-            // Link Dropdown
             var linkDropdown = document.createElement('div');
             linkDropdown.classList.add('downarea-tool-dropdown');
             linkDropdown.id = 'link-dropdown';
@@ -128,7 +117,6 @@ var DownArea = /** @class */ (function () {
             linkTool.appendChild(linkDropdown);
         }
         if (this.hiddenTools.indexOf('image') < 0) {
-            // Image
             var imageTool = document.createElement('div');
             imageTool.classList.add('downarea-toolbar-tool');
             imageTool.dataset.action = 'image';
@@ -137,7 +125,6 @@ var DownArea = /** @class */ (function () {
             toolbar.appendChild(imageTool);
         }
         if (this.hiddenTools.indexOf('blockquote') < 0) {
-            // Blockquote
             var blockquoteTool = document.createElement('div');
             blockquoteTool.classList.add('downarea-toolbar-tool');
             blockquoteTool.dataset.action = 'blockquote';
@@ -146,7 +133,6 @@ var DownArea = /** @class */ (function () {
             toolbar.appendChild(blockquoteTool);
         }
         if (this.hiddenTools.indexOf('u-list') < 0) {
-            // Unordered List
             var unorderedListTool = document.createElement('div');
             unorderedListTool.classList.add('downarea-toolbar-tool');
             unorderedListTool.dataset.action = 'u-list';
@@ -155,7 +141,6 @@ var DownArea = /** @class */ (function () {
             toolbar.appendChild(unorderedListTool);
         }
         if (this.hiddenTools.indexOf('o-list') < 0) {
-            // Ordered List
             var orderedListTool = document.createElement('div');
             orderedListTool.classList.add('downarea-toolbar-tool');
             orderedListTool.dataset.action = 'o-list';
@@ -164,7 +149,6 @@ var DownArea = /** @class */ (function () {
             toolbar.appendChild(orderedListTool);
         }
         if (this.hiddenTools.indexOf('sl-code') < 0) {
-            // Single Line Code
             var singleLineCodeTool = document.createElement('div');
             singleLineCodeTool.classList.add('downarea-toolbar-tool');
             singleLineCodeTool.dataset.action = 'sl-code';
@@ -173,7 +157,6 @@ var DownArea = /** @class */ (function () {
             toolbar.appendChild(singleLineCodeTool);
         }
         if (this.hiddenTools.indexOf('code-block') < 0) {
-            // Code Block
             var codeBlockTool = document.createElement('div');
             codeBlockTool.classList.add('downarea-toolbar-tool');
             codeBlockTool.dataset.action = 'code-block';
@@ -181,14 +164,14 @@ var DownArea = /** @class */ (function () {
             codeBlockTool.innerHTML = "<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 100 100\" version=\"1.1\"\n                         style=\"fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;\">\n                        <g transform=\"matrix(1.47619,0,0,1.37619,-9.78571,-21.5619)\">\n                            <path d=\"M29.5,65L9,65L9,72L29.5,72L29.5,65ZM61,54L9,54L9,61L61,61L61,54ZM50,43L9,43L9,50L50,50L50,43ZM72,32L9,32L9,39L72,39L72,32Z\"/>\n                        </g>\n                    </svg>";
             toolbar.appendChild(codeBlockTool);
         }
-        // Textarea Container
         var textareaContainer = document.createElement('div');
         textareaContainer.classList.add('downarea-textarea');
         wrapper.appendChild(textareaContainer);
-        // Textarea
         var textarea = document.createElement('textarea');
+        if (this.textareaName) {
+            textarea.name = this.textareaName;
+        }
         textareaContainer.appendChild(textarea);
-        // Bottom
         var bottom = document.createElement('div');
         bottom.classList.add('downarea-bottom');
         wrapper.appendChild(bottom);
@@ -241,7 +224,8 @@ var DownArea = /** @class */ (function () {
                 e.preventDefault();
                 if (e.shiftKey) {
                     self.shiftTab(self);
-                } else {
+                }
+                else {
                     self.addTab(self);
                 }
             }
@@ -257,11 +241,14 @@ var DownArea = /** @class */ (function () {
         var _this = this;
         if (this.resize == DownArea.RESIZE_OFF) {
             this.resizer.remove();
-        } else if (this.resize == DownArea.RESIZE_VERTICAL) {
+        }
+        else if (this.resize == DownArea.RESIZE_VERTICAL) {
             this.resizer.classList.add('vertical');
-        } else if (this.resize == DownArea.RESIZE_HORIZONTAL) {
+        }
+        else if (this.resize == DownArea.RESIZE_HORIZONTAL) {
             this.resizer.classList.add('horizontal');
-        } else if (this.resize == DownArea.RESIZE_BOTH) {
+        }
+        else if (this.resize == DownArea.RESIZE_BOTH) {
             this.resizer.classList.add('both');
         }
         var isResizing = false;
@@ -290,11 +277,13 @@ var DownArea = /** @class */ (function () {
                     if (rect.height > self.minHeight) {
                         self.downareaElement.style.height = rect.height - (prevY - e.clientY) + 'px';
                     }
-                } else if (self.resizer.classList.contains('horizontal')) {
+                }
+                else if (self.resizer.classList.contains('horizontal')) {
                     if (rect.width > self.minWidth) {
                         self.downareaElement.style.width = rect.width - (prevX - e.clientX) + 'px';
                     }
-                } else if (self.resizer.classList.contains('both')) {
+                }
+                else if (self.resizer.classList.contains('both')) {
                     if (rect.width > self.minWidth) {
                         self.downareaElement.style.width = rect.width - (prevX - e.clientX) + 'px';
                     }
@@ -326,7 +315,8 @@ var DownArea = /** @class */ (function () {
                 if (action) {
                     if (action.args) {
                         action.fn.apply(action, __spreadArray([self], action.args));
-                    } else {
+                    }
+                    else {
                         action.fn(self);
                     }
                 }
@@ -345,14 +335,13 @@ var DownArea = /** @class */ (function () {
     DownArea.prototype.initDropdowns = function () {
         var tools = this.downareaElement.querySelectorAll('.downarea-toolbar .downarea-toolbar-tool');
         tools.forEach(function (tool) {
-            // @ts-ignore
             if (tool.dataset.dropdown) {
-                // @ts-ignore
                 var dropdown_1 = tool.querySelector('#' + tool.dataset.dropdown);
                 tool.addEventListener('click', function () {
                     if (dropdown_1.classList.contains('active')) {
                         dropdown_1.classList.remove('active');
-                    } else {
+                    }
+                    else {
                         dropdown_1.classList.add('active');
                     }
                 });
@@ -374,7 +363,8 @@ var DownArea = /** @class */ (function () {
         var end = self.textarea.value.substr(self.textarea.selectionStart);
         if (start[start.length - 1] == '\t') {
             start = (_a = start.substr(0, start.length - 1)) !== null && _a !== void 0 ? _a : '';
-        } else if (end[0] == '\t') {
+        }
+        else if (end[0] == '\t') {
             end = end.substr(1);
         }
         self.textarea.value = "" + start + end;
@@ -383,9 +373,7 @@ var DownArea = /** @class */ (function () {
         self.textarea.focus();
     };
     DownArea.prototype.addHeading = function (self, level) {
-        if (level === void 0) {
-            level = 1;
-        }
+        if (level === void 0) { level = 1; }
         var start = self.textarea.value.substr(0, self.textarea.selectionStart);
         var end = self.textarea.value.substr(self.textarea.selectionStart);
         var heading = repeat('#', level) + " ";
@@ -478,9 +466,7 @@ var DownArea = /** @class */ (function () {
         self.textarea.focus();
     };
     DownArea.prototype.addLink = function (self, type) {
-        if (type === void 0) {
-            type = 0;
-        }
+        if (type === void 0) { type = 0; }
         var start = self.textarea.value.substr(0, self.textarea.selectionStart);
         var end = self.textarea.value.substr(self.textarea.selectionStart);
         var link = '';
@@ -495,7 +481,8 @@ var DownArea = /** @class */ (function () {
                 link = rangeIsURL ? "[](" + range.trim() + ")" : "[" + range.trim() + "](http://)";
                 offset = rangeIsURL ? range.trim().length + 3 : 1;
             }
-        } else {
+        }
+        else {
             link = '<>';
             offset = link.length - 1;
             if (self.textarea.selectionStart != self.textarea.selectionEnd) {

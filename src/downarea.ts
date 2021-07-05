@@ -2,6 +2,7 @@ interface DownAreaArgs {
     elem: HTMLElement;
     resize?: number;
     hide?: string[];
+    name?: string;
 }
 
 interface ListingInterface {
@@ -33,6 +34,7 @@ class DownArea {
     private resizer: HTMLDivElement;
     private toolbar: HTMLDivElement;
     private textarea: HTMLTextAreaElement;
+    private textareaName: string;
     private resize: number;
     private tools: HTMLDivElement[] = [];
 
@@ -63,6 +65,7 @@ class DownArea {
 
     constructor(args: DownAreaArgs) {
         this.element = args.elem;
+        this.textareaName = args.name ?? null;
         this.resize = args.resize ?? DownArea.RESIZE_VERTICAL;
         this.hiddenTools = args.hide ?? [];
 
@@ -322,6 +325,9 @@ class DownArea {
 
         // Textarea
         const textarea = document.createElement('textarea');
+        if (this.textareaName) {
+            textarea.name = this.textareaName;
+        }
         textareaContainer.appendChild(textarea);
 
         // Bottom

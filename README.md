@@ -8,11 +8,11 @@ An easy to use, lightweight and extensible JavaScript markdown editor library.
 ---
 
 > CDN Links
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.0.0/src/downarea.min.js
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.0.0/src/downarea.min.css
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.1.0/src/downarea.min.js
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.1.0/src/downarea.min.css
 > 
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.0.0/src/downarea.js
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.0.0/src/downarea.css
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.1.0/src/downarea.js
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.1.0/src/downarea.css
 
 ---
 
@@ -54,6 +54,7 @@ An easy to use, lightweight and extensible JavaScript markdown editor library.
         elem: document.querySelector('.editor'), // Required - Container element
         resize: DownArea.RESIZE_BOTH, // Optional - RESIZE_OFF | RESIZE_VERTICAL | RESIZE_HORIZONTAL | RESIZE_BOTH
         hide: ['heading'], // Optional - Type the keys of the tools you want to hide here.
+        name: 'body', // Optional - `name` attribute value.
     });
 </script>
 </body>

@@ -8,11 +8,11 @@ An easy to use, lightweight and extensible JavaScript markdown editor library.
 ---
 
 > CDN Links
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.1.0/src/downarea.min.js
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.1.0/src/downarea.min.css
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.2.0/src/downarea.min.js
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.2.0/src/downarea.min.css
 > 
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.1.0/src/downarea.js
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.1.0/src/downarea.css
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.2.0/src/downarea.js
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.2.0/src/downarea.css
 
 ---
 

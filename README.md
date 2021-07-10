@@ -55,6 +55,7 @@ An easy to use, lightweight and extensible JavaScript markdown editor library.
         resize: DownArea.RESIZE_BOTH, // Optional - RESIZE_OFF | RESIZE_VERTICAL | RESIZE_HORIZONTAL | RESIZE_BOTH
         hide: ['heading'], // Optional - Type the keys of the tools you want to hide here.
         name: 'body', // Optional - `name` attribute value.
+        value: 'Lorem ipsum dolor sit amet.', // Optional - Textarea value.
     });
 </script>
 </body>

@@ -13,7 +13,7 @@ var repeat = function (string, count) {
 var DownArea = (function () {
     function DownArea(args) {
         var _a;
-        var _b, _c, _d;
+        var _b, _c, _d, _e;
         this.minWidth = 464;
         this.minHeight = 120;
         this.tools = [];
@@ -39,8 +39,9 @@ var DownArea = (function () {
             _a);
         this.element = args.elem;
         this.textareaName = (_b = args.name) !== null && _b !== void 0 ? _b : null;
-        this.resize = (_c = args.resize) !== null && _c !== void 0 ? _c : DownArea.RESIZE_VERTICAL;
-        this.hiddenTools = (_d = args.hide) !== null && _d !== void 0 ? _d : [];
+        this.textareaValue = (_c = args.value) !== null && _c !== void 0 ? _c : '';
+        this.resize = (_d = args.resize) !== null && _d !== void 0 ? _d : DownArea.RESIZE_VERTICAL;
+        this.hiddenTools = (_e = args.hide) !== null && _e !== void 0 ? _e : [];
         this.init();
     }
     DownArea.prototype.init = function () {
@@ -171,6 +172,7 @@ var DownArea = (function () {
         if (this.textareaName) {
             textarea.name = this.textareaName;
         }
+        textarea.value = this.textareaValue.toString();
         textareaContainer.appendChild(textarea);
         var bottom = document.createElement('div');
         bottom.classList.add('downarea-bottom');

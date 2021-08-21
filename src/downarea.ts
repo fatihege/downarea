@@ -1,9 +1,15 @@
 interface DownAreaArgs {
-    elem: HTMLElement;
+    elem: HTMLDivElement | HTMLTextAreaElement;
+    attr?: DownAreaContainerInterface;
     resize?: number;
     hide?: string[];
     name?: string;
     value?: string | number;
+}
+
+interface DownAreaContainerInterface {
+    id?: string[];
+    class?: string[];
 }
 
 interface ListingInterface {
@@ -30,7 +36,8 @@ class DownArea {
     private readonly minWidth: number = 464;
     private readonly minHeight: number = 120;
 
-    private element: HTMLElement;
+    private element: HTMLDivElement | HTMLTextAreaElement;
+    private attr?: DownAreaContainerInterface;
     private downareaElement: HTMLDivElement;
     private resizer: HTMLDivElement;
     private toolbar: HTMLDivElement;
@@ -67,6 +74,7 @@ class DownArea {
 
     constructor(args: DownAreaArgs) {
         this.element = args.elem;
+        this.attr = args.attr ?? {};
         this.textareaName = args.name ?? null;
         this.textareaValue = args.value ?? '';
         this.resize = args.resize ?? DownArea.RESIZE_VERTICAL;
@@ -76,9 +84,25 @@ class DownArea {
     }
 
     private init() {
-        this.element.innerHTML = '';
+        if (this.element instanceof HTMLTextAreaElement) {
+            const containerElement = document.createElement('div');
 
-        this.createElements();
+            if (this.attr.id) {
+                containerElement.id = this.attr.id.join(' ');
+            }
+
+            if (this.attr.class) {
+                containerElement.classList.add(...this.attr.class);
+            }
+
+            this.textarea = this.element;
+            this.element.parentNode.replaceChild(containerElement, this.element);
+            this.element = containerElement;
+            this.createElements();
+        } else {
+            this.createElements();
+        }
+
         this.registerElements();
         this.initResizer();
         this.listenTools();
@@ -327,7 +351,7 @@ class DownArea {
         wrapper.appendChild(textareaContainer);
 
         // Textarea
-        const textarea = document.createElement('textarea');
+        const textarea = this.textarea ?? document.createElement('textarea');
         if (this.textareaName) {
             textarea.name = this.textareaName;
         }

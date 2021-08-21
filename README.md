@@ -8,11 +8,11 @@ An easy to use, lightweight and extensible JavaScript markdown editor library.
 ---
 
 > CDN Links
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.2.0/src/downarea.min.js
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.2.0/src/downarea.min.css
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.3.0/src/downarea.min.js
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.3.0/src/downarea.min.css
 > 
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.2.0/src/downarea.js
-> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.2.0/src/downarea.css
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.3.0/src/downarea.js
+> > https://cdn.jsdelivr.net/gh/fatihege/downarea@1.3.0/src/downarea.css
 
 ---
 
@@ -36,6 +36,7 @@ An easy to use, lightweight and extensible JavaScript markdown editor library.
 
 ## Simple Usage
 
+Usage with the `<div>` element:
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -61,6 +62,51 @@ An easy to use, lightweight and extensible JavaScript markdown editor library.
 </body>
 </html>
 ```
+---
+
+Usage with the `<textarea>` element:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DownArea</title>
+    <link rel="stylesheet" href="downarea.min.css">
+</head>
+<body>
+
+<textarea class="editor" name="content"></textarea>
+
+<script src="downarea.min.js"></script>
+<script>
+    var downarea = new DownArea({
+        elem: document.querySelector('.editor'), // Required - Textarea element.
+        attr: { // Optional - Values of the `id` and `class` attributes. 
+            id: ['editor-id'], // Optional - ID of the element.
+            class: ['editor-class'], // Optional - Class of the element.
+        },
+        resize: DownArea.RESIZE_BOTH, // Optional - RESIZE_OFF | RESIZE_VERTICAL | RESIZE_HORIZONTAL | RESIZE_BOTH
+        hide: ['heading'], // Optional - Type the keys of the tools you want to hide here.
+        name: 'body', // Optional - `name` attribute value. Overwrites if the name attribute is defined.
+        value: 'Lorem ipsum dolor sit amet.', // Optional - Textarea value.
+    });
+</script>
+</body>
+</html>
+```
+
+---
+
+## All Arguments
+
+| Key    | Description                                   |
+| ------ | --------------------------------------------- |
+| elem   | DownArea container DIV or TextArea            |
+| attr   | If the `elem` key is given the `textarea` element, the values of the ID and class attributes of the container element. |
+| resize | Editor's resizer options.                     |
+| hide   | Tools to hide.                                |
+| name   | The value of the textarea's `name` attribute. |
+| value  | The content of the textarea.                  |
 
 ---
 

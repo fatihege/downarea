@@ -37,6 +37,7 @@
     min-width: max-content !important;
     min-height: 120px !important;
     position: relative;
+    overflow: hidden;
 }
 
 .downarea.focused {
@@ -180,9 +181,10 @@
 
 .downarea .downarea-textarea {
     width: 100%;
-    height: 100%;
+    height: max-content;
     background: #fff;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .downarea .downarea-textarea textarea {
@@ -191,6 +193,7 @@
     height: 100%;
     border: none;
     padding: 8px;
+    margin-bottom: 20px;
     resize: none;
     font-size: 14px;
     font-weight: 500;

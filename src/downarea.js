@@ -13,7 +13,7 @@ var repeat = function (string, count) {
 var DownArea = (function () {
     function DownArea(args) {
         var _a;
-        var _b, _c, _d, _e;
+        var _b, _c, _d, _e, _f;
         this.minWidth = 464;
         this.minHeight = 120;
         this.tools = [];
@@ -38,15 +38,31 @@ var DownArea = (function () {
             _a['code-block'] = { fn: this.addCodeBlock },
             _a);
         this.element = args.elem;
-        this.textareaName = (_b = args.name) !== null && _b !== void 0 ? _b : null;
-        this.textareaValue = (_c = args.value) !== null && _c !== void 0 ? _c : '';
-        this.resize = (_d = args.resize) !== null && _d !== void 0 ? _d : DownArea.RESIZE_VERTICAL;
-        this.hiddenTools = (_e = args.hide) !== null && _e !== void 0 ? _e : [];
+        this.attr = (_b = args.attr) !== null && _b !== void 0 ? _b : {};
+        this.textareaName = (_c = args.name) !== null && _c !== void 0 ? _c : null;
+        this.textareaValue = (_d = args.value) !== null && _d !== void 0 ? _d : '';
+        this.resize = (_e = args.resize) !== null && _e !== void 0 ? _e : DownArea.RESIZE_VERTICAL;
+        this.hiddenTools = (_f = args.hide) !== null && _f !== void 0 ? _f : [];
         this.init();
     }
     DownArea.prototype.init = function () {
-        this.element.innerHTML = '';
-        this.createElements();
+        var _a;
+        if (this.element instanceof HTMLTextAreaElement) {
+            var containerElement = document.createElement('div');
+            if (this.attr.id) {
+                containerElement.id = this.attr.id.join(' ');
+            }
+            if (this.attr.class) {
+                (_a = containerElement.classList).add.apply(_a, this.attr.class);
+            }
+            this.textarea = this.element;
+            this.element.parentNode.replaceChild(containerElement, this.element);
+            this.element = containerElement;
+            this.createElements();
+        }
+        else {
+            this.createElements();
+        }
         this.registerElements();
         this.initResizer();
         this.listenTools();
@@ -55,6 +71,7 @@ var DownArea = (function () {
         this.setTextareaSize();
     };
     DownArea.prototype.createElements = function () {
+        var _a;
         var downareaElement = document.createElement('div');
         downareaElement.classList.add('downarea');
         this.element.appendChild(downareaElement);
@@ -168,7 +185,7 @@ var DownArea = (function () {
         var textareaContainer = document.createElement('div');
         textareaContainer.classList.add('downarea-textarea');
         wrapper.appendChild(textareaContainer);
-        var textarea = document.createElement('textarea');
+        var textarea = (_a = this.textarea) !== null && _a !== void 0 ? _a : document.createElement('textarea');
         if (this.textareaName) {
             textarea.name = this.textareaName;
         }

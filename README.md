@@ -1,4 +1,4 @@
-![DownArea Logo](https://imgupload.io/images/2021/07/04/downarea-500x200.png "DownArea Logo")
+![DownArea Logo](./img/downarea-500x200.png "DownArea Logo")
 
 ---
 
